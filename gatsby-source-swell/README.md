@@ -1,10 +1,16 @@
 # gatsby-source-swell
 
-Source plugin for pulling store data into [Gatsby](https://www.gatsbyjs.com/) from [Swell](https://www.swell.is/) via the [Swell API](https://swell.store/docs/api/).
+This source plugin connects [Gatsby](https://www.gatsbyjs.com/) to [Swell's](https://www.swell.is/) [Node API](https://swell.store/docs/api/), which gives you access to the store data (categories, products, etc.) necessary to build an e-commerce storefront.
 
 ## Features
 
 - Provides public shop data available via the [Swell API](https://swell.store/docs/api/)
+  - Categories
+  - Products
+  - Product Attributes
+  - Product Variants
+  - Coupons
+  - Promotions
 - Supports `gatsby-transformer-sharp` and `gatsby-image` for product images
 
 ## Install
