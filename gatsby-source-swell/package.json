@@ -1,0 +1,34 @@
+{
+  "name": "@marichelle/gatsby-source-swell",
+  "description": "Source plugin for pulling product data into Gatsby from Swell.",
+  "version": "1.0.0",
+  "dependencies": {
+    "gatsby-source-filesystem": "2.4.1",
+    "swell-node": "^3.1.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maya-the-creator/gatsby-source-swell.git"
+  },
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "commerce",
+    "ecommerce",
+    "e-commerce",
+    "swell"
+  ],
+  "author": "Maya E. <maya@abunchofcreators.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maya-the-creator/gatsby-source-swell/issues",
+    "email": "maya@abunchofcreators.com"
+  },
+  "homepage": "https://github.com/maya-the-creator/gatsby-source-swell",
+  "publishConfig": {
+    "access": "public"
+  }
+}
