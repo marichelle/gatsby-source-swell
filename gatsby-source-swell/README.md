@@ -16,7 +16,7 @@ This source plugin connects [Gatsby](https://www.gatsbyjs.com/) to [Swell's](htt
 ## Install
 
 ```shell
-yarn add gatsby-source-swell
+yarn add @marichelle/gatsby-source-swell
 ```
 
 ## How to use
