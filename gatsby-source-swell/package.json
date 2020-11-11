@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/maya-the-creator/gatsby-source-swell.git"
+    "url": "https://github.com/marichelle/gatsby-source-swell.git"
   },
   "scripts": {
     "test": "echo \"No test specified\""
@@ -21,13 +21,13 @@
     "e-commerce",
     "swell"
   ],
-  "author": "Maya E. <maya@abunchofcreators.com>",
+  "author": "Maya E. <mayaestalilla@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maya-the-creator/gatsby-source-swell/issues",
-    "email": "maya@abunchofcreators.com"
+    "url": "https://github.com/marichelle/gatsby-source-swell/issues",
+    "email": "mayaestalilla@gmail.com"
   },
-  "homepage": "https://github.com/maya-the-creator/gatsby-source-swell",
+  "homepage": "https://github.com/marichelle/gatsby-source-swell",
   "publishConfig": {
     "access": "public"
   }
