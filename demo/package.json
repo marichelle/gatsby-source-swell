@@ -1,11 +1,12 @@
 {
-  "name": "@marichelle/gatsby-source-swell-demo",
+  "name": "demo",
   "private": true,
   "version": "1.0.0 ",
   "scripts": {
     "build": "gatsby build",
     "clean": "gatsby clean",
-    "dev": "gatsby develop"
+    "dev": "gatsby develop",
+    "serve": "gatsby serve"
   },
   "dependencies": {
     "dotenv": "8.2.0",

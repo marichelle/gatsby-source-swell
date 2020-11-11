@@ -7,7 +7,8 @@
   "scripts": {
     "build": "yarn workspace demo build",
     "clean": "yarn workspace demo clean",
-    "dev": "yarn workspace demo dev"
+    "dev": "yarn workspace demo dev",
+    "serve": "yarn workspace demo serve"
   },
   "release": {
     "plugins": [
