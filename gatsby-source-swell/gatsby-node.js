@@ -17,7 +17,10 @@ exports.sourceNodes = async (
   })
 
   // determine Swell data types to fetch
-  dataTypes = dataTypes || ['category', 'product']
+  dataTypes =
+    dataTypes !== undefined && dataTypes.length
+      ? dataTypes
+      : ['category', 'product']
   dataTypes = NODE_TYPES.filter(type => dataTypes.includes(type.label))
 
   await Promise.all(
@@ -25,22 +28,26 @@ exports.sourceNodes = async (
       // fetch data via API call
       const response = await swell.get(dataType.endpoint, dataType.arguments)
 
-      reporter.info(`starting to fetch ${dataType.label} data from Swell`)
+      if (response.results.length) {
+        reporter.info(`starting to fetch ${dataType.label} data from Swell`)
 
-      // create a node for each object
-      response.results.forEach(obj => {
-        createNode({
-          ...obj,
-          id: createNodeId(obj.id),
-          internal: {
-            type: NODE_PREFIX + dataType.type,
-            content: JSON.stringify(obj),
-            contentDigest: createContentDigest(obj),
-          },
+        // create a node for each object
+        response.results.forEach(obj => {
+          createNode({
+            ...obj,
+            id: createNodeId(obj.id),
+            internal: {
+              type: NODE_PREFIX + dataType.type,
+              content: JSON.stringify(obj),
+              contentDigest: createContentDigest(obj),
+            },
+          })
         })
-      })
 
-      reporter.info(`finished fetching ${dataType.label} data from Swell`)
+        reporter.info(`finished fetching ${dataType.label} data from Swell`)
+      } else {
+        reporter.info(`no ${dataType.label} data available to fetch from Swell`)
+      }
     })
   )
 }
