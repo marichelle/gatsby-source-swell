@@ -44,7 +44,7 @@ plugins: [
       dataTypes: [
         'category',
         'product',
-        'atttribute',
+        'attribute',
         'variant',
         'coupon',
         'promotion',

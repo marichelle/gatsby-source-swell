@@ -34,7 +34,11 @@ exports.sourceNodes = async (
         // create a node for each object
         response.results.forEach(obj => {
           createNode({
+            // Data for the node.
             ...obj,
+            [`${dataType.label}_id`]: obj.id,
+
+            // Required fields.
             id: createNodeId(obj.id),
             internal: {
               type: NODE_PREFIX + dataType.type,
@@ -53,30 +57,48 @@ exports.sourceNodes = async (
 }
 
 exports.onCreateNode = async ({
-  actions: { createNode },
-  store,
-  node,
-  cache,
+  actions: { createNode, createNodeField },
   createNodeId,
+  getCache,
+  node,
 }) => {
-  if (node.internal.type === 'SwellProduct' && node.images.length > 0) {
-    const images = await Promise.all(
-      // download images and create File nodes accordingly
-      node.images.map(el =>
-        createRemoteFileNode({
-          store,
-          cache,
-          createNode,
-          createNodeId,
-          parentNodeId: node.id,
-          url: el.file.url,
-        })
+  if (node.internal.type === 'SwellProduct') {
+    // download images and create File nodes accordingly
+    if (node.images.length > 0) {
+      const images = await Promise.all(
+        node.images.map(el =>
+          createRemoteFileNode({
+            createNode,
+            createNodeId,
+            getCache,
+            parentNodeId: node.id,
+            url: el.file.url, // The source url of the remote file
+          })
+        )
       )
-    )
 
-    // link File nodes to image nodes
-    node.images.forEach((image, i) => {
-      image.fileLocal___NODE = images[i].id
-    })
+      // link File nodes to image nodes
+      node.images.forEach((image, i) => {
+        image.fileLocal___NODE = images[i].id
+      })
+    }
+
+    // create field for product categories
+    if (node.category_index.id.length > 0) {
+      const categories = await Promise.all(
+        node.category_index.id.map(
+          async categoryId =>
+            await swell.get('/categories/{id}', {
+              id: categoryId,
+            })
+        )
+      )
+
+      createNodeField({
+        node,
+        name: 'categories',
+        value: categories || [],
+      })
+    }
   }
 }
