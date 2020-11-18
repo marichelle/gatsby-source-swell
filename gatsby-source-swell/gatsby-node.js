@@ -33,7 +33,7 @@ exports.sourceNodes = async (
 
         // create a node for each object
         response.results.forEach(obj => {
-          createNode({
+          let nodeData = {
             // Data for the node.
             ...obj,
             [`${dataType.label}_id`]: obj.id,
@@ -45,7 +45,22 @@ exports.sourceNodes = async (
               content: JSON.stringify(obj),
               contentDigest: createContentDigest(obj),
             },
-          })
+          }
+
+          // add foreign-key relationship for bundle products and product categories
+          if (dataType.label === 'product') {
+            nodeData = {
+              ...nodeData,
+              [`bundle_products___NODE`]: obj.bundle_items
+                ? obj.bundle_items.map(item => createNodeId(item.product_id))
+                : [],
+              [`categories___NODE`]: obj.category_index.id
+                ? obj.category_index.id.map(id => createNodeId(id))
+                : [],
+            }
+          }
+
+          createNode(nodeData)
         })
 
         reporter.info(`finished fetching ${dataType.label} data from Swell`)
@@ -83,7 +98,7 @@ exports.onCreateNode = async ({
       })
     }
 
-    // create field for product categories
+    // create custom field for product categories
     if (node.category_index.id.length > 0) {
       const categories = await Promise.all(
         node.category_index.id.map(
